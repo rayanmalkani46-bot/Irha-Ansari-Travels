@@ -1,0 +1,6 @@
+import type {Metadata} from 'next';
+import {PageIntro,Button,CTA,FAQs,Eyebrow} from '@/components/irha/shared';
+import {services,quoteLink,documentChecklists,checklistNotice} from '@/lib/content';
+import {Icon} from '@/components/irha/icon';
+export const metadata:Metadata={title:'Visa Services',description:'Explore group, individual and long-stay or Iqama-based Umrah visa assistance for travel agents.'};
+export default function Page(){return <><PageIntro label="UMRAH VISA SPECIALISTS" title="Visa assistance, with clarity at every step." text="A considered approach to your agency’s enquiries. We help establish the available service and the next steps before you proceed."/><section className="section detail-list">{services.filter(s=>s.category==='visa').map(s=><article id={s.id} key={s.id} className="service-detail"><div><span className="icon-box"><Icon name={s.icon}/></span><h2>{s.title}</h2><p>{s.detail}</p><Button href={quoteLink(s.id)+'&intent=requirements'}>Request Requirements</Button></div><aside><Eyebrow>DOCUMENT COORDINATION</Eyebrow><h3>Indicative document checklist</h3><ul>{documentChecklists[s.id].map(item=><li key={item}>{item}</li>)}</ul><p className="fine-print">{checklistNotice}</p></aside></article>)}</section><FAQs/><CTA/></>}

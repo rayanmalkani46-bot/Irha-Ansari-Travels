@@ -1,0 +1,8 @@
+import type {Metadata} from 'next';
+import {PageIntro,Eyebrow} from '@/components/irha/shared';
+import {EnquiryForm} from '@/components/irha/enquiry-form';
+import {services} from '@/lib/content';
+import {isConfigured} from '@/lib/server-config';
+export const dynamic='force-dynamic';
+export const metadata:Metadata={title:'Request a B2B Quote',description:'Share your agency’s Umrah visa, BRN or transport requirements with IRHA ANSARI TRAVELS.'};
+export default async function Page({searchParams}:{searchParams:Promise<{service?:string;intent?:string}>}){const params=await searchParams;const selected=services.some(s=>s.id===params.service)?params.service!:'';const requirements=params.intent==='requirements';return <><PageIntro label="LET’S START A CONVERSATION" title="Your next journey starts with a clear plan." text="Tell us about your agency and requirements. We’ll help you understand the available services and next steps."/><section className="section contact-layout"><aside><Eyebrow>FOR TRAVEL AGENTS</Eyebrow><h2>A more personal<br/><em>way to coordinate.</em></h2><p>Whether it’s one traveller or an entire group, start with the details you know.</p><ol className="contact-steps"><li>Share your proposed requirements.</li><li>Receive a tailored quotation and confirmed checklist.</li><li>Agree the next steps with our team.</li></ol><div className="contact-note">Please keep passports and identity documents out of this initial enquiry. Our team will explain the appropriate document submission method when required.</div></aside><EnquiryForm key={selected+String(requirements)} configured={isConfigured()} initialService={selected} requestRequirements={requirements}/></section></>}

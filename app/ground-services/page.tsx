@@ -1,0 +1,6 @@
+import type {Metadata} from 'next';
+import {PageIntro,Button,CTA} from '@/components/irha/shared';
+import {services,quoteLink} from '@/lib/content';
+import {Icon} from '@/components/irha/icon';
+export const metadata:Metadata={title:'BRN & Ground Services',description:'Hotel and catering BRN coordination and transport assistance for your agency’s Umrah enquiries.'};
+export default function Page(){return <><PageIntro label="BRN & GROUND SERVICES" title="Bring the details of the journey together." text="Hotel, catering and transport coordination that starts with your agency’s itinerary and priorities."/><section className="section detail-list">{services.filter(s=>s.category==='ground').map(s=><article key={s.id} id={s.id} className="service-detail"><div><span className="icon-box"><Icon name={s.icon}/></span><h2>{s.title}</h2><p>{s.detail}</p><Button href={quoteLink(s.id)}>Discuss Your Requirements</Button></div><aside><h3>A quotation built around your plans.</h3><p>Include your tentative dates, number of travellers and preferences in your enquiry. Our team will confirm the scope, availability and next steps.</p><p className="fine-print">Booking references, service inclusions and any applicable requirements are confirmed for your request. No arrangements are confirmed by submitting this form.</p></aside></article>)}</section><CTA/></>}
